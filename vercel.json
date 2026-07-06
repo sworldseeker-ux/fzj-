@@ -2,7 +2,12 @@
   "buildCommand": "npm run build",
   "functions": {
     "api/index.ts": {
-      "runtime": "@vercel/node@3.2.0"
+      "runtime": "@vercel/node@5.3.6",
+      "config": {
+        "nodejs": {
+          "version": "22"
+        }
+      }
     }
   },
   "routes": [
@@ -11,12 +16,12 @@
       "dest": "/api/index.ts"
     },
     {
-      "src": "/uploads/(.*)",
-      "dest": "/api/index.ts"
+      "src": "/(.*)",
+      "dest": "/dist/$1"
     },
     {
-      "src": "/(.*)",
-      "dest": "/index.html"
+      "src": "/",
+      "dest": "/dist/index.html"
     }
   ]
 }
