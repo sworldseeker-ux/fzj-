@@ -1,12 +1,9 @@
-import fs from 'fs';
-import path from 'path';
-import { fileURLToPath } from 'url';
+const fs = require('fs');
+const path = require('path');
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
 const DATA_DIR = path.join(__dirname, '../data');
 
-export default function handler(req: any, res: any) {
+module.exports = function handler(req, res) {
   try {
     const profilePath = path.join(DATA_DIR, 'profile.json');
     if (fs.existsSync(profilePath)) {
@@ -16,6 +13,6 @@ export default function handler(req: any, res: any) {
       res.status(404).json({ success: false, message: 'Profile not found' });
     }
   } catch (error) {
-    res.status(500).json({ success: false, error: (error as Error).message });
+    res.status(500).json({ success: false, error: error.message });
   }
-}
+};
